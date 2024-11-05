@@ -9,9 +9,12 @@ export const Card = ({ crop }) => {
     <div className="bg-slate-700  w-[30%]sm:w-[30%] rounded-md overflow-hidden text-white m-4 border-[4px] border-black">
       <div className="p-4">
         <h2 className="text-xl font-bold mb-2">Name: {name}</h2>
+        <span> </span>
         <p className="text-lg font-semibold">Market Price: {marketPrice}</p>
         <p className="mt-2">Benefits/Description: {benefits}</p>
       </div>
     </div>
   );
 };
+
+// commnet
