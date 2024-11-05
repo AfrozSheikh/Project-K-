@@ -1,9 +1,8 @@
-// src/CropForm.js
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Spinner from "./Spinner";
-import "./but.css";
+import { XCircleIcon } from "lucide-react";
 
 const CropForm = () => {
   const [cityName, setCityName] = useState("");
@@ -17,7 +16,7 @@ const CropForm = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,7 +40,6 @@ const CropForm = () => {
       if (response.data.error) {
         setError("Something went wrong. Please try again.");
       } else {
-        // Navigate to the 'RecommendCrop' page with the received crop data
         navigate("/recommend-crop", { state: { crops: response.data } });
       }
     } catch (err) {
@@ -50,178 +48,177 @@ const CropForm = () => {
       setLoading(false);
     }
   };
+  const handleCloseError = () => {
+    setError("");
+  };
 
   return (
-    <div className="bg-green-500 ">
-      <h1 className=" text-[40px] p-[2px] -4 text-center font-extrabold">
-        KrushiMitra
-      </h1>
+    <div className="bg-green-500 min-h-screen flex flex-col items-center justify-center">
+      <h1 className="text-4xl font-bold text-white mb-8">KrushiMitra</h1>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col items-center  justify-center h-full w-full"
+        className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md"
       >
-        {/* City Input className="border border-black rounded-" */}
-        <div className="m-3 p-4  text-lg font-extrabold">
-          {" "}
-          <label className=" mx-5" htmlFor="cityname">
+        <div className="mb-4">
+          <label htmlFor="cityname" className="block font-bold mb-2">
             City
           </label>
-          <input className="border border-black rounded-"
+          <input
             type="text"
             name="cityname"
             placeholder="Enter Your City Name"
             required
             value={cityName}
             onChange={(e) => setCityName(e.target.value)}
+            className="border border-gray-300 rounded-lg py-2 px-4 w-full"
           />
         </div>
 
-        {/* Soil Data Section */}
-        <div className="m-3 p-4  text-lg font-extrabold">
-          {" "}
-          <h2>Soil Data - For More Accuracy</h2>
-          {/* Phosporous Input className="border border-black rounded-" */}
-          <label className=" mx-5" htmlFor="phosporous">
-            Enter Phosporous PPM
-          </label>
-          <input className="border border-black rounded-"
-            type="text"
-            name="phosporous"
-            placeholder="Ex 33.6kg/ha"
-            value={phosporous}
-            onChange={(e) => setPhosporous(e.target.value)}
-          />
+        <div className="mb-4">
+          <h2 className="font-bold mb-2">Soil Data - For More Accuracy</h2>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label htmlFor="phosporous" className="block font-bold mb-2">
+                Phosporous PPM
+              </label>
+              <input
+                type="text"
+                name="phosporous"
+                placeholder="Ex 33.6kg/ha"
+                value={phosporous}
+                onChange={(e) => setPhosporous(e.target.value)}
+                className="border border-gray-300 rounded-lg py-2 px-4 w-full"
+              />
+            </div>
+            <div>
+              <label htmlFor="nitrogen" className="block font-bold mb-2">
+                Nitrogen PPM
+              </label>
+              <input
+                type="text"
+                name="nitrogen"
+                placeholder="ppm"
+                value={nitrogen}
+                onChange={(e) => setNitrogen(e.target.value)}
+                className="border border-gray-300 rounded-lg py-2 px-4 w-full"
+              />
+            </div>
+            <div>
+              <label htmlFor="potassium" className="block font-bold mb-2">
+                Potassium PPM
+              </label>
+              <input
+                type="text"
+                name="potassium"
+                placeholder="ppm"
+                value={potassium}
+                onChange={(e) => setPotassium(e.target.value)}
+                className="border border-gray-300 rounded-lg py-2 px-4 w-full"
+              />
+            </div>
+            <div>
+              <label htmlFor="ph" className="block font-bold mb-2">
+                pH Level
+              </label>
+              <select
+                name="ph"
+                value={ph}
+                onChange={(e) => setPh(e.target.value)}
+                className="border border-gray-300 rounded-lg py-2 px-4 w-full"
+              >
+                <option value="very-acidic">Very Acidic (pH &lt; 5.0)</option>
+                <option value="moderately-acidic">
+                  Moderately Acidic (pH 5.0 - 6.0)
+                </option>
+                <option value="slightly-acidic">
+                  Slightly Acidic (pH 6.0 - 6.5)
+                </option>
+                <option value="neutral">Neutral (pH 6.5 - 7.5)</option>
+                <option value="slightly-alkaline">
+                  Slightly Alkaline (pH 7.5 - 8.5)
+                </option>
+                <option value="alkaline">Alkaline (pH &gt; 8.5)</option>
+              </select>
+            </div>
+            <div>
+              <label htmlFor="moisture" className="block font-bold mb-2">
+                Moisture PPM
+              </label>
+              <input
+                type="text"
+                name="moisture"
+                placeholder="%"
+                value={moisture}
+                onChange={(e) => setMoisture(e.target.value)}
+                className="border border-gray-300 rounded-lg py-2 px-4 w-full"
+              />
+            </div>
+            <div>
+              <label htmlFor="soiltype" className="block font-bold mb-2">
+                Soil Type
+              </label>
+              <select
+                name="soiltype"
+                value={soilType}
+                onChange={(e) => setSoilType(e.target.value)}
+                className="border border-gray-300 rounded-lg py-2 px-4 w-full"
+              >
+                <option value="black">Black Soil (Regur Soil)</option>
+                <option value="red">Red Soil</option>
+                <option value="desert">Desert Soil</option>
+                <option value="mountain">Mountain Soil</option>
+                <option value="saline-alkaline">Saline and Alkaline Soil</option>
+                <option value="peaty-marshy">Peaty and Marshy Soil</option>
+              </select>
+            </div>
+            <div>
+              <label htmlFor="wateravailability" className="block font-bold mb-2">
+                Water Availability
+              </label>
+              <select
+                name="wateravailability"
+                value={waterAvailability}
+                onChange={(e) => setWaterAvailability(e.target.value)}
+                className="border border-gray-300 rounded-lg py-2 px-4 w-full"
+              >
+                <option value="high">High Availability</option>
+                <option value="moderate">Moderate Availability</option>
+                <option value="low">Low Availability</option>
+                <option value="rainfed">Rain-fed Only</option>
+                <option value="irrigated">Irrigated</option>
+              </select>
+            </div>
+          </div>
         </div>
 
-        <div className="m-3 p-4  text-lg font-extrabold">
-          {/* Nitrogen Input className="border border-black rounded-" */}
-          <label className=" mx-5" htmlFor="nitrogen">
-            Enter Nitrogen PPM
-          </label>
-          <input className="border border-black rounded-"
-            type="text"
-            name="nitrogen"
-            placeholder="ppm"
-            value={nitrogen}
-            onChange={(e) => setNitrogen(e.target.value)}
-          />
-        </div>
-
-        <div className="m-3 p-4  text-lg font-extrabold">
-          {/* Potassium Input className="border border-black rounded-" */}
-          <label className=" mx-5" htmlFor="potassium">
-            Enter Potassium PPM
-          </label>
-          <input className="border border-black rounded-"
-            type="text"
-            name="potassium"
-            placeholder="ppm"
-            value={potassium}
-            onChange={(e) => setPotassium(e.target.value)}
-          />
-        </div>
-
-        <div className="m-3 p-4  text-lg font-extrabold">
-          {" "}
-          {/* pH Level Dropdown */}
-          <label className=" mx-5" htmlFor="ph">
-            Enter pH Level
-          </label>
-          <select name="ph" value={ph} onChange={(e) => setPh(e.target.value)}>
-            <option value="very-acidic">Very Acidic (pH &lt; 5.0)</option>
-            <option value="moderately-acidic">
-              Moderately Acidic (pH 5.0 - 6.0)
-            </option>
-            <option value="slightly-acidic">
-              Slightly Acidic (pH 6.0 - 6.5)
-            </option>
-            <option value="neutral">Neutral (pH 6.5 - 7.5)</option>
-            <option value="slightly-alkaline">
-              Slightly Alkaline (pH 7.5 - 8.5)
-            </option>
-            <option value="alkaline">Alkaline (pH &gt; 8.5)</option>
-          </select>
-        </div>
-        {/* Moisture Input className="border border-black rounded-" */}
-        <div className="m-3 p-4  text-lg font-extrabold">
-          {" "}
-          <label className=" mx-5" htmlFor="moisture">
-            Enter Moisture PPM
-          </label>
-          <input className="border border-black rounded-"
-            type="text"
-            name="moisture"
-            placeholder="%"
-            value={moisture}
-            onChange={(e) => setMoisture(e.target.value)}
-          />
-        </div>
-
-        {/* Soil Type Dropdown */}
-        <div className="m-3 p-4  text-lg font-extrabold">
-          {" "}
-          <label className=" mx-5" htmlFor="soiltype">
-            Soil Type
-          </label>
-          <select
-            name="soiltype"
-            value={soilType}
-            onChange={(e) => setSoilType(e.target.value)}
-          >
-            <option value="black">Black Soil (Regur Soil)</option>
-            <option value="red">Red Soil</option>
-            <option value="desert">Desert Soil</option>
-            <option value="mountain">Mountain Soil</option>
-            <option value="saline-alkaline">Saline and Alkaline Soil</option>
-            <option value="peaty-marshy">Peaty and Marshy Soil</option>
-          </select>
-        </div>
-        {/* Water Availability Dropdown */}
-        <div className="m-3 p-4  text-lg font-extrabold">
-          {" "}
-          <label className=" mx-5" htmlFor="wateravailability">
-            Water Availability
-          </label>
-          <select
-            name="wateravailability"
-            value={waterAvailability}
-            onChange={(e) => setWaterAvailability(e.target.value)}
-          >
-            <option value="high">High Availability</option>
-            <option value="moderate">Moderate Availability</option>
-            <option value="low">Low Availability</option>
-            <option value="rainfed">Rain-fed Only</option>
-            <option value="irrigated">Irrigated</option>
-          </select>
-        </div>
-
-        {/* Submit Button */}
-        <div>
-          <button 
-          className="my-5 border-[5px] border-black "
-          id="neonShadow" type="submit" disabled={loading}>
-            submit
-          </button>
-        </div>
+        <button
+          type="submit"
+          disabled={loading}
+          className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg w-full"
+        >
+          Submit
+        </button>
       </form>
 
-      {/* Loading and Error Handling */}
-         {/* Loading and Error Handling */}
-         {loading && (
+      {loading && (
         <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-black">
           <Spinner />
         </div>
       )}
 
-      {error &&
-       (
+{error && (
         <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-black">
-           <p
-           className="text-[40px] font-extrabold bg-slate-50 w-full text-center "
-           style={{ color: "black" }}>{error}</p>
+          <div className="bg-white text-black font-bold p-4 rounded-lg w-full max-w-md relative">
+            <button
+              className="absolute top-2 right-2 text-black hover:text-gray-500"
+              onClick={handleCloseError}
+            >
+              <XCircleIcon className="w-6 h-6" />
+            </button>
+            <p className="mb-4">Something went wrong. Please try again.</p>
+          </div>
         </div>
-      )
-     }
+      )}
     </div>
   );
 };
