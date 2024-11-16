@@ -30,7 +30,7 @@ const NavBar = () => {
       <div className="flex items-center gap-4">
         <input
           type="text"
-          placeholder="Search Crop"
+          placeholder="Search Crop Info"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="py-2 px-4 rounded-lg text-black"
