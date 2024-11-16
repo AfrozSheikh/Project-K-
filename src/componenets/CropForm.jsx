@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Spinner from "./Spinner";
 import { XCircleIcon } from "lucide-react";
+import NavBar from "./NavBar";
 
 const CropForm = () => {
   const [cityName, setCityName] = useState("");
@@ -53,7 +54,12 @@ const CropForm = () => {
   };
 
   return (
-    <div className="bg-green-500 min-h-screen flex flex-col items-center justify-center">
+    <div
+    style={{
+      background: "linear-gradient(135deg, #00C853 0%, #B2FF59 100%)",
+    }}
+    className=" min-h-screen flex flex-col items-center justify-center">
+      <NavBar/>
       <h1 className="text-4xl font-bold text-white mb-8">KrushiMitra</h1>
       <form
         onSubmit={handleSubmit}
