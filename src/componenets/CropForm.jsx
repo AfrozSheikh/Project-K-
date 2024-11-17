@@ -10,10 +10,10 @@ const CropForm = () => {
   const [phosporous, setPhosporous] = useState("");
   const [nitrogen, setNitrogen] = useState("");
   const [potassium, setPotassium] = useState("");
-  const [ph, setPh] = useState("");
+  const [ph, setPh] = useState("neutral"); // Set a default value
   const [moisture, setMoisture] = useState("");
-  const [soilType, setSoilType] = useState("");
-  const [waterAvailability, setWaterAvailability] = useState("");
+  const [soilType, setSoilType] = useState("black"); // Set a default value
+  const [waterAvailability, setWaterAvailability] = useState("moderate"); // Set a default value
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -49,17 +49,19 @@ const CropForm = () => {
       setLoading(false);
     }
   };
+
   const handleCloseError = () => {
     setError("");
   };
 
   return (
     <div
-    style={{
-      background: "linear-gradient(135deg, #00C853 0%, #B2FF59 100%)",
-    }}
-    className=" min-h-screen flex flex-col items-center justify-center">
-      <NavBar/>
+      style={{
+        background: "linear-gradient(135deg, #00C853 0%, #B2FF59 100%)",
+      }}
+      className="min-h-screen flex flex-col items-center justify-center"
+    >
+      <NavBar />
       <h1 className="text-4xl font-bold text-white mb-8">KrushiMitra</h1>
       <form
         onSubmit={handleSubmit}
@@ -126,25 +128,20 @@ const CropForm = () => {
               <label htmlFor="ph" className="block font-bold mb-2">
                 pH Level
               </label>
-              <select
-                name="ph"
-                value={ph}
-                onChange={(e) => setPh(e.target.value)}
-                className="border border-gray-300 rounded-lg py-2 px-4 w-full"
-              >
-                <option value="very-acidic">Very Acidic (pH &lt; 5.0)</option>
-                <option value="moderately-acidic">
-                  Moderately Acidic (pH 5.0 - 6.0)
-                </option>
-                <option value="slightly-acidic">
-                  Slightly Acidic (pH 6.0 - 6.5)
-                </option>
-                <option value="neutral">Neutral (pH 6.5 - 7.5)</option>
-                <option value="slightly-alkaline">
-                  Slightly Alkaline (pH 7.5 - 8.5)
-                </option>
-                <option value="alkaline">Alkaline (pH &gt; 8.5)</option>
-              </select>
+              <select  
+  id="ph"  
+  name="ph"  
+  value={ph}  
+  onChange={(e) => setPh(e.target.value)}  
+  className="border border-gray-300 rounded-lg py-2 px-4 w-full"  
+>  
+  <option value="very-acidic">Very Acidic (pH &lt; 5.0)</option>  
+  <option value="moderately-acidic">Moderately Acidic (pH 5.0 - 6.0)</option>  
+  <option value="slightly-acidic">Slightly Acidic (pH 6.0 - 6.5)</option>  
+  <option value="neutral">Neutral (pH 6.5 - 7.5)</option>  
+</select>
+
+
             </div>
             <div>
               <label htmlFor="moisture" className="block font-bold mb-2">
@@ -212,7 +209,7 @@ const CropForm = () => {
         </div>
       )}
 
-{error && (
+      {error && (
         <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-black">
           <div className="bg-white text-black font-bold p-4 rounded-lg w-full max-w-md relative">
             <button
@@ -221,7 +218,7 @@ const CropForm = () => {
             >
               <XCircleIcon className="w-6 h-6" />
             </button>
-            <p className="mb-4">Something went wrong. Please try again.</p>
+            <p className="text-lg">{error}</p>
           </div>
         </div>
       )}
